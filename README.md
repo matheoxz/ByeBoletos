@@ -52,4 +52,46 @@ A vida adulta chega e com ela muitas responsabilidades, tantas que ficamos até 
 * O sistema deverá assegurar as informações pessoais do usuário.
 
 ### 3 Modelos de análise
+#### 3.1 Diagrama de casos de uso
+<br>
+[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/C%C3%B3pia%20de%20ByeBoletos%20Caso%20de%20Uso.png)
+<br>
+
+#### 3.2 Diagrama de classes
+<br>
+[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/classes.png)
+<br>
+
+#### 3.3 Modelo Conceitual
+<br>
+[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/conceitual.png)
+<br>
+
+#### 3.4 Modelo de Dados
+<br>
+[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/Dados.png)
+<br>
+
+### 4 Descrição das tecnologia escolhidas (ex: linguagens de programação, ferramentas de desenvolvimento, APIs, ferramentas de teste, gerenciador de banco de dados, sistemas operacionais alvo, etc)
+<br>
+As tecnologias escolhidas para o projeto são a linguagem de programação Dart e o SDK Flutter, o gerenciador de banco de dados será o SQLite3, com os sistemas operacionais alvo sendo Android e iOS. <br>
+O SDK Flutter permite o desenvolvimento simultâneo em Android e iOS, gerando uma aplicação capaz de rodar de forma nativa em ambos sem alterações no código de uma plataforma para outra. O SDK é para a linguagem Dart, ambos são desenvolvidos pela Google e iniciativas Open Source. O SDK permite o desenvolvimento de UI flexível e de forma rápida e simples. <br>
+O SGBD escolhido é o SQLite3 pois trata-se de um gerenciador local para esquemas simples, assim, as informações ficam armazenadas no celular do usuário em primeiro momento, sem necessidade de configurar um servidor para o banco de dados. Para funcionalidades que não serão demonstradas, como a de cadastro de usuário e divisão de contas, seria necessário um servidor para a aplicação, mas para simplificação, foi escolhido o armazenamento local. A interface entre o SGBD e a linguagem de programação escolhida é feita pelo pacote sqflite. <br>
+Para a fácil programação e exibição das notificações foi escolhido o uso do pacote  flutter_local_notifications.
+O editor de código escolhido é o VSCode, para trabalhar em grupo utilizaremos a extensão LiveShare. O versionamento do código será feito através do GitHub. <br>
+
+### 5 Projeto Arquitetural
+
+### 6 Projeto de componentes
+
+### 7 Projeto de interface com o usuário
+<br>
+[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/1_Home.png)
+<br>
+<br>
+[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/2_Configura%C3%A7%C3%B5es.png)
+<br>
+<br>
+[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/3_Adicionar_Boleto.png)
+<br>
 
