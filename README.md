@@ -68,7 +68,9 @@ A vida adulta chega e com ela muitas responsabilidades, tantas que ficamos até 
 
 #### 3.3 Modelo Conceitual
 <br>
+
 ![picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/conceitual.png)
+
 <br>
 
 #### 3.4 Modelo de Dados
