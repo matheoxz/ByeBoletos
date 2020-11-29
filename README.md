@@ -54,22 +54,28 @@ A vida adulta chega e com ela muitas responsabilidades, tantas que ficamos até 
 ### 3 Modelos de análise
 #### 3.1 Diagrama de casos de uso
 <br>
-[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/C%C3%B3pia%20de%20ByeBoletos%20Caso%20de%20Uso.png)
+
+![alt text](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/C%C3%B3pia%20de%20ByeBoletos%20Caso%20de%20Uso.png)
+
 <br>
 
 #### 3.2 Diagrama de classes
 <br>
-[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/classes.png)
+
+![picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/classes.png)
+
 <br>
 
 #### 3.3 Modelo Conceitual
 <br>
-[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/conceitual.png)
+![picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/conceitual.png)
 <br>
 
 #### 3.4 Modelo de Dados
 <br>
-[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/Dados.png)
+
+![picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/Dados.png)
+
 <br>
 
 ### 4 Descrição das tecnologia escolhidas (ex: linguagens de programação, ferramentas de desenvolvimento, APIs, ferramentas de teste, gerenciador de banco de dados, sistemas operacionais alvo, etc)
@@ -86,12 +92,16 @@ O editor de código escolhido é o VSCode, para trabalhar em grupo utilizaremos 
 
 ### 7 Projeto de interface com o usuário
 <br>
-[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/1_Home.png)
+
+![picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/1_Home.png)
+
 <br>
+
+![picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/2_Configura%C3%A7%C3%B5es.png)
+
 <br>
-[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/2_Configura%C3%A7%C3%B5es.png)
-<br>
-<br>
-[picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/3_Adicionar_Boleto.png)
+
+![picture alt](https://github.com/matheoxz/ByeBoletos/blob/main/.images%20readme/3_Adicionar_Boleto.png)
+
 <br>
 
