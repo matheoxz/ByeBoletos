@@ -1,39 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'categoria.dart';
 
 class Boleto {
-  String titulo, descricao, cod, pathArquivo;
-  double valor;
-  DateTime dataChegada, dataVencimento;
+  String TITULO, DESCRICAO, ARQUIVO, CODIGO;
+  double VALOR;
+  int ID;
+  DateTime DATACHEGADA, DATAVENCIMENTO;
+  Categoria CATEGORIA;
 
   Boleto(
-      {@required this.cod,
-      @required this.titulo,
-      @required this.valor,
-      @required this.dataChegada,
-      @required this.dataVencimento,
-      this.pathArquivo,
-      this.descricao});
+      {@required this.TITULO,
+      @required this.VALOR,
+      @required this.DATACHEGADA,
+      @required this.DATAVENCIMENTO,
+      @required this.CATEGORIA,
+      this.ARQUIVO,
+      this.DESCRICAO,
+      this.CODIGO});
 
   Boleto.fromMap(Map<String, dynamic> map) {
-    cod = map['cod'];
-    titulo = map['titulo'];
-    valor = map['valor'];
-    dataChegada = map['dataChegada'];
-    dataVencimento = map['dataVencimento'];
-    pathArquivo = map['pathArquivo'];
-    descricao = map['descricao'];
+    ID = map['ID'];
+    TITULO = map['TITULO'];
+    VALOR = map['VALOR'];
+    DATACHEGADA = map['DATACHEGADA'];
+    DATAVENCIMENTO = map['DATAVENCIMENTO'];
+    CODIGO = map['CODIGO'];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      'cod': cod,
-      'titulo': titulo,
-      'valor': valor,
-      'dataChegada': dataChegada,
-      'dataVencimento': dataVencimento,
-      'pathArquivo': pathArquivo,
-      'descricao': descricao
+      'ID': ID,
+      'TITULO': TITULO,
+      'VALOR': VALOR,
+      'DATACHEGADA': DATACHEGADA,
+      'DATAVENCIMENTO': DATAVENCIMENTO,
+      'CODIGO': CODIGO
     };
     return map;
   }
