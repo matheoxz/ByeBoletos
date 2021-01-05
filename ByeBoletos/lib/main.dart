@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
+  List<CardBoleto> cards = [];
 
   final String title;
 
@@ -51,15 +53,26 @@ class _MyHomePageState extends State<MyHomePage> {
     returnBoletos().then((value) {
       print(value);
       setState(() {
-        print('oi2');
         boletos = value;
+        criaListaCard(boletos);
       });
     });
   }
 
   Future<List<Map<String, dynamic>>> returnBoletos() async {
-    print('oi');
     return await dbCTL.selectBoleto();
+  }
+
+  void criaListaCard(List<Map<String, dynamic>> boletos) {
+    boletos.forEach((element) {
+      Boleto _bol = Boleto.fromMap(element);
+      _bol.getCategoria(element).then((value) {
+        cards.add(CardBoleto(
+          boleto: _bol,
+        ));
+      });
+    });
+    setState(() {});
   }
 
   @override
@@ -155,21 +168,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            CardBoleto(
-              boleto: Boleto(
-                TITULO: 'Condomínio',
-                VALOR: 280.00,
-                DATACHEGADA: DateTime.utc(2020, 10, 10),
-                DATAVENCIMENTO: DateTime.utc(2020, 11, 11),
-                CATEGORIA:
-                    Categoria(ICONE: ",", NOME: 'Teste', CORHEX: '#ded571'),
-              ),
-            ),
-          ],
+        child: ListView(
+          children: cards,
         ),
       ),
       floatingActionButton: FloatingActionButton(

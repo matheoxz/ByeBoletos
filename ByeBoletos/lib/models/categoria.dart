@@ -18,19 +18,14 @@ class Categoria {
   }
 
   Categoria.fromMap(Map<String, dynamic> map) {
-    ICONE = map['ICONE'];
     NOME = map['NOME'];
     ID = map['ID'];
     CORHEX = map['COR'];
+    COR = hexColor(CORHEX);
   }
 
   Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{
-      'ICONE': ICONE,
-      'NOME': NOME,
-      'ID': ID,
-      'COR': CORHEX
-    };
+    var map = <String, dynamic>{'NOME': NOME, 'ID': ID, 'COR': CORHEX};
     return map;
   }
 }

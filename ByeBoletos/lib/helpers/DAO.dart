@@ -22,23 +22,23 @@ class DAO {
     String path = directory.path + 'byeboletos.db';
 
     var boletosDatabase =
-        await openDatabase(path, version: 1, onCreate: _createDb);
+        await openDatabase(path, version: 2, onCreate: _createDb);
     return boletosDatabase;
   }
 
   void _createDb(Database db, int newVersion) async {
     await db.execute('''
       CREATE TABLE CATEGORIA(
-      ID INTEGER AUTO INCREMENT PRIMARY KEY NOT NULL,
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
       NOME TEXT NOT NULL,
       COR TEXT NOT NULL,
-      ICONE TEXT NOT NULL);
+      ICONE TEXT);
       ''');
     await db.execute('''
       CREATE TABLE BOLETO(
-      ID INTEGER AUTO INCREMENT PRIMARY KEY NOT NULL,
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
       TITULO TEXT NOT NULL,
-      DESCRICAO TEXT NOT NULL,
+      DESCRICAO TEXT,
       DATACHEGADA TEXT NOT NULL,
       DATAVENCIMENTO TEXT NOT NULL,
       CODIGO TEXT,
@@ -66,6 +66,35 @@ class DAO {
       PRIMARY KEY (DATAHORA, IDBOLETO)
       );
       ''');
+
+    await db.execute('''
+    INSERT INTO CATEGORIA(NOME, COR) 
+    VALUES('Categoria', '#bfb3b2');
+    ''');
+    await db.execute('''
+    INSERT INTO CATEGORIA(NOME, COR) 
+    VALUES('Moradia', '#dbaeeb');
+    ''');
+    await db.execute('''
+    INSERT INTO CATEGORIA(NOME, COR) 
+    VALUES('Mobilidade', '#b6ebae');
+    ''');
+    await db.execute('''
+    INSERT INTO CATEGORIA(NOME, COR) 
+    VALUES('Compras Online', '#aee9eb');
+    ''');
+    await db.execute('''
+    INSERT INTO CATEGORIA(NOME, COR) 
+    VALUES('Lazer', '#f0de7d');
+    ''');
+    await db.execute('''
+    INSERT INTO CATEGORIA(NOME, COR) 
+    VALUES('Mercado', '#f09892');
+    ''');
+    await db.execute('''
+    INSERT INTO CATEGORIA(NOME, COR) 
+    VALUES('Contas', '#f7a6e8');
+    ''');
   }
 
 /***********INSERT***********/
@@ -141,6 +170,11 @@ class DAO {
   Future<List<Map<String, dynamic>>> selectCategoria() async {
     Database db = await instance.database;
     return await db.query("CATEGORIA");
+  }
+
+  Future<List<Map<String, dynamic>>> selectCategoriaID(int id) async {
+    Database db = await instance.database;
+    return await db.query("CATEGORIA", where: "ID = ?", whereArgs: [id]);
   }
 
   Future<List<Map<String, dynamic>>> selectBoleto() async {

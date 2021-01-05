@@ -1,3 +1,6 @@
+import 'package:ByeBoletos/main.dart';
+import 'package:ByeBoletos/models/boleto.dart';
+import 'package:ByeBoletos/models/categoria.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +19,53 @@ class _FormsBoletoState extends State<FormsBoleto> {
       valorCTL = TextEditingController(),
       codigoCTL = TextEditingController();
   final dbCTL = DAO.instance;
+
+  List<Map<String, dynamic>> categorias;
+  List<String> categoriasNome = [];
+  String ddValue;
+  int id;
+  double valor;
+
+  @override
+  void initState() {
+    super.initState();
+    returnCategorias().then((value) {
+      print(value);
+      setState(() {
+        categorias = value;
+        categorias.forEach((element) {
+          categoriasNome.add(element['NOME']);
+        });
+        ddValue = categoriasNome[0];
+        id = 1;
+      });
+    });
+  }
+
+  Future<List<Map<String, dynamic>>> returnCategorias() async {
+    return await dbCTL.selectCategoria();
+  }
+
+  Widget dropdownCategoria() {
+    return Container(
+        //width: double.infinity,
+        child: DropdownButton<String>(
+            value: ddValue,
+            isExpanded: true,
+            items: categoriasNome.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (item) {
+              setState(() {
+                ddValue = item;
+                id = categoriasNome.indexOf(item);
+              });
+            }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -41,7 +91,7 @@ class _FormsBoletoState extends State<FormsBoleto> {
               padding:
                   const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
               margin: EdgeInsets.all(10),
-              child: DropdownCategoria(),
+              child: dropdownCategoria(),
             ),
             Container(
               padding:
@@ -136,14 +186,22 @@ class _FormsBoletoState extends State<FormsBoleto> {
               alignment: Alignment.bottomRight,
               child: ElevatedButton(
                 onPressed: () {
-                  Map<String, dynamic> row = {
-                    'TITULO': tituloCTL.text,
-                    'DATACHEGADA': chegadaCTL.text,
-                    'DATAVENCIMENTO': vencimentoCTL.text,
-                    'VALOR': valorCTL.text,
-                    'CODIGO': codigoCTL.text,
-                  };
-                  dbCTL.insertBoleto(row);
+                  Categoria cat = Categoria.fromMap(categorias[id]);
+                  valorCTL.text = valorCTL.text.replaceAll('R\$', '');
+                  valorCTL.text = valorCTL.text.replaceAll(',', '.');
+                  valorCTL.text = valorCTL.text.replaceAll(' ', '');
+
+                  Boleto bol = Boleto(
+                      TITULO: tituloCTL.text,
+                      VALOR: double.parse(valorCTL.text),
+                      DATACHEGADA: chegada,
+                      DATAVENCIMENTO: vencimento,
+                      CATEGORIA: cat);
+
+                  dbCTL.insertBoleto(bol.toMap());
+
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
                 },
                 child: Text('Adicionar'),
               ),
@@ -152,58 +210,6 @@ class _FormsBoletoState extends State<FormsBoleto> {
         ),
       ),
     );
-  }
-}
-
-class DropdownCategoria extends StatefulWidget {
-  @override
-  _DropdownCategoriaState createState() => _DropdownCategoriaState();
-}
-
-class _DropdownCategoriaState extends State<DropdownCategoria> {
-  final dbCTL = DAO.instance;
-  List<Map<String, dynamic>> categorias;
-  String ddValue = 'Categoria';
-
-  @override
-  void initState() {
-    returnCategorias().then((value) {
-      print(value);
-      setState(() {
-        categorias = value;
-      });
-    });
-  }
-
-  Future<List<Map<String, dynamic>>> returnCategorias() async {
-    return await dbCTL.selectCategoria();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        //width: double.infinity,
-        child: DropdownButton<String>(
-            value: ddValue,
-            isExpanded: true,
-            items: <String>[
-              'Categoria',
-              'Moradia',
-              'Mobilidade',
-              'Saneamento',
-              'Compras Online',
-              'Contas'
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (item) {
-              setState(() {
-                ddValue = item;
-              });
-            }));
   }
 }
 
