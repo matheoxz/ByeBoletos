@@ -1,3 +1,4 @@
+import 'package:ByeBoletos/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:email_validator/email_validator.dart';
@@ -16,9 +17,12 @@ class _ConfiguracoesState extends State<Configuracoes> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Configurações'),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         leading: BackButton(
           color: Colors.white,
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MyHomePage())),
         ),
       ),
       body: Center(

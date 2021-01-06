@@ -1,6 +1,7 @@
 import 'package:ByeBoletos/models/categoria.dart';
 import 'package:flutter/material.dart';
 import 'package:ByeBoletos/models/boleto.dart';
+import 'package:ByeBoletos/helpers/DAO.dart';
 
 class CardBoleto extends StatefulWidget {
   final Boleto boleto;
@@ -11,6 +12,7 @@ class CardBoleto extends StatefulWidget {
 
 class _CardBoletoState extends State<CardBoleto> {
   final Boleto boleto;
+  final bd = DAO.instance;
 
   _CardBoletoState({@required this.boleto});
 

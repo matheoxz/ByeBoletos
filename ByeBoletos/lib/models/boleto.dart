@@ -12,7 +12,6 @@ class Boleto {
   Categoria CATEGORIA;
   final bd = DAO.instance;
   List<Map<String, dynamic>> cat;
-  Future _done;
   bool barreira = false;
 
   Boleto(

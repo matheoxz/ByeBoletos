@@ -1,6 +1,5 @@
 import 'package:ByeBoletos/configuracoes.dart';
 import 'package:ByeBoletos/insercao_boleto.dart';
-import 'package:ByeBoletos/models/categoria.dart';
 import 'package:ByeBoletos/widgets/card_boleto.dart';
 import 'package:ByeBoletos/models/boleto.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-  List<CardBoleto> cards = [];
+  List<Dismissible> cards = [];
 
   final String title;
 
@@ -39,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final dbCTL = DAO.instance;
   List<Map<String, dynamic>> boletos;
-  List<CardBoleto> cards = [];
+  List<Dismissible> cards = [];
 
   void _configPage(context) async {
     await Navigator.push(
@@ -64,13 +63,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void criaListaCard(List<Map<String, dynamic>> boletos) {
+    int index = 0;
     boletos.forEach((element) {
       Boleto _bol = Boleto.fromMap(element);
       _bol.getCategoria(element).then((value) {
-        cards.add(CardBoleto(
-          boleto: _bol,
-        ));
+        cards.add(Dismissible(
+            key: UniqueKey(),
+            background: Container(
+              color: Colors.red,
+            ),
+            onDismissed: (direction) {
+              setState(() {
+                dbCTL.deleteBoleto(_bol.ID);
+                cards.removeAt(index);
+                boletos.removeWhere((item) => item == element);
+              });
+            },
+            child: CardBoleto(
+              boleto: _bol,
+            )));
       });
+      index++;
     });
     setState(() {});
   }
@@ -89,7 +102,15 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(':('),
           centerTitle: true,
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+                onPressed: () => _configPage(context),
+                icon: Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                ))
+          ],
         ),
         body: Container(
           width: double.infinity,
@@ -134,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text('ByeBoletos'),
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
               onPressed: () => _configPage(context),
@@ -144,6 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         bottom: AppBar(
           elevation: 0.0,
+          automaticallyImplyLeading: false,
           title: Container(
             height: 50,
             child: TextField(

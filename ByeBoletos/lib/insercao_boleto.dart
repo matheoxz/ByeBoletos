@@ -68,145 +68,147 @@ class _FormsBoletoState extends State<FormsBoleto> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      child: Padding(
-        padding: MediaQuery.of(context).viewInsets,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
-              margin: EdgeInsets.all(10),
-              child: TextFormField(
-                controller: tituloCTL,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.title),
-                    hintText: 'Qual o nome do seu boleto?',
-                    labelText: 'Título'),
+    return SingleChildScrollView(
+      child: Form(
+        child: Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: tituloCTL,
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.title),
+                      hintText: 'Qual o nome do seu boleto?',
+                      labelText: 'Título'),
+                ),
               ),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
-              margin: EdgeInsets.all(10),
-              child: dropdownCategoria(),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
-              margin: EdgeInsets.all(10),
-              child: TextFormField(
-                controller: chegadaCTL,
-                onTap: () async {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                  showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime(2222))
-                      .then((date) {
-                    setState(() {
-                      chegada = date;
-                      chegadaCTL.text =
-                          '${date.day}/${date.month}/${date.year}';
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
+                margin: EdgeInsets.all(10),
+                child: dropdownCategoria(),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: chegadaCTL,
+                  onTap: () async {
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                    showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2020),
+                            lastDate: DateTime(2222))
+                        .then((date) {
+                      setState(() {
+                        chegada = date;
+                        chegadaCTL.text =
+                            '${date.day}/${date.month}/${date.year}';
+                      });
                     });
-                  });
-                },
-                decoration: InputDecoration(
-                    icon: Icon(Icons.date_range_rounded),
-                    hintText: 'Quando chegou seu boleto?',
-                    labelText: 'Data chegada'),
+                  },
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.date_range_rounded),
+                      hintText: 'Quando chegou seu boleto?',
+                      labelText: 'Data chegada'),
+                ),
               ),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
-              margin: EdgeInsets.all(10),
-              child: TextFormField(
-                controller: vencimentoCTL,
-                onTap: () async {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                  showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2222))
-                      .then((date) {
-                    setState(() {
-                      vencimento = date;
-                      vencimentoCTL.text =
-                          '${date.day}/${date.month}/${date.year}';
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: vencimentoCTL,
+                  onTap: () async {
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                    showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2222))
+                        .then((date) {
+                      setState(() {
+                        vencimento = date;
+                        vencimentoCTL.text =
+                            '${date.day}/${date.month}/${date.year}';
+                      });
                     });
-                  });
-                },
-                decoration: InputDecoration(
-                    icon: Icon(Icons.calendar_today_rounded),
-                    hintText: 'Quando vence seu boleto?',
-                    labelText: 'Data vencimento'),
+                  },
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.calendar_today_rounded),
+                      hintText: 'Quando vence seu boleto?',
+                      labelText: 'Data vencimento'),
+                ),
               ),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
-              margin: EdgeInsets.all(10),
-              child: TextFormField(
-                controller: valorCTL,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  CurrencyInputFormatter()
-                ],
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.attach_money),
-                    hintText: 'Qual o valor em reais do seu boleto?',
-                    labelText: 'Valor'),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: valorCTL,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    CurrencyInputFormatter()
+                  ],
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.attach_money),
+                      hintText: 'Qual o valor em reais do seu boleto?',
+                      labelText: 'Valor'),
+                ),
               ),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
-              margin: EdgeInsets.all(10),
-              child: TextFormField(
-                controller: codigoCTL,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.qr_code_rounded),
-                    hintText: 'Qual o código do seu boleto? (opcional)',
-                    labelText: 'Código'),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16),
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: codigoCTL,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.qr_code_rounded),
+                      hintText: 'Qual o código do seu boleto? (opcional)',
+                      labelText: 'Código'),
+                ),
               ),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-              alignment: Alignment.bottomRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  Categoria cat = Categoria.fromMap(categorias[id]);
-                  valorCTL.text = valorCTL.text.replaceAll('R\$', '');
-                  valorCTL.text = valorCTL.text.replaceAll(',', '.');
-                  valorCTL.text = valorCTL.text.replaceAll(' ', '');
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+                alignment: Alignment.bottomRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Categoria cat = Categoria.fromMap(categorias[id]);
+                    valorCTL.text = valorCTL.text.replaceAll('R\$', '');
+                    valorCTL.text = valorCTL.text.replaceAll(',', '.');
+                    valorCTL.text = valorCTL.text.replaceAll(' ', '');
 
-                  Boleto bol = Boleto(
-                      TITULO: tituloCTL.text,
-                      VALOR: double.parse(valorCTL.text),
-                      DATACHEGADA: chegada,
-                      DATAVENCIMENTO: vencimento,
-                      CATEGORIA: cat);
+                    Boleto bol = Boleto(
+                        TITULO: tituloCTL.text,
+                        VALOR: double.parse(valorCTL.text),
+                        DATACHEGADA: chegada,
+                        DATAVENCIMENTO: vencimento,
+                        CATEGORIA: cat);
 
-                  dbCTL.insertBoleto(bol.toMap());
+                    dbCTL.insertBoleto(bol.toMap());
 
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()));
-                },
-                child: Text('Adicionar'),
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                  },
+                  child: Text('Adicionar'),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
