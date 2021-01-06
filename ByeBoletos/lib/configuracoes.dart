@@ -24,6 +24,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
   void initState() {
     setState(() {
       returnUsuario().then((value) {
+        print(value);
         if (value.length > 0)
           setState(() {
             usuario = Usuario.fromMap(value[0]);
@@ -135,15 +136,26 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    usuario = Usuario(
-                        EMAIL: emailCTL.text,
-                        HORARIOPREFERIDO: horario,
-                        TELEFONE: telefoneCTL.text,
-                        USERNAME: usernameCTL.text);
-                    if (first) {
-                      bd.insertUsuario(usuario.toMap());
-                    } else {
-                      bd.updateUsuario(usuario.toMap());
+                    try {
+                      usuario = Usuario(
+                          EMAIL: emailCTL.text,
+                          HORARIOPREFERIDO: horario,
+                          TELEFONE: telefoneCTL.text,
+                          USERNAME: usernameCTL.text);
+                      if (first) {
+                        bd.insertUsuario(usuario.toMap());
+                      } else {
+                        bd.updateUsuario(usuario.toMap());
+                      }
+                    } catch (e) {
+                      /*Scaffold.of(context).showSnackBar(SnackBar(
+                        content:
+                            Text('Erro ao cadastrar usuário, tente novamente!'),
+                      ));*/
+                    } finally {
+                      /* Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text('Usuário cadastrado com sucesso'),
+                      ));*/
                     }
                   },
                   child: Text('Salvar'),

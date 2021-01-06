@@ -73,11 +73,25 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.red,
             ),
             onDismissed: (direction) {
-              setState(() {
-                dbCTL.deleteBoleto(_bol.ID);
-                cards.removeAt(index);
-                boletos.removeWhere((item) => item == element);
-              });
+              try {
+                setState(() {
+                  dbCTL.deleteBoleto(_bol.ID);
+                  cards.removeAt(index);
+                  boletos.removeWhere((item) => item == element);
+                });
+              } catch (e) {
+                /*Builder(builder: (BuildContext context) {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Erro ao deletar boleto, tente novamente!'),
+                  ));
+                });*/
+              } finally {
+                /*Builder(builder: (BuildContext context) {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Boleto ${_bol.TITULO} deletado!'),
+                  ));
+                });*/
+              }
             },
             child: CardBoleto(
               boleto: _bol,
