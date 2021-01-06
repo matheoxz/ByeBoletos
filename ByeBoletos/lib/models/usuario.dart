@@ -7,15 +7,17 @@ class Usuario {
 
   Usuario(
       {@required this.EMAIL,
-      this.HORARIOPREFERIDO,
-      this.TELEFONE,
-      this.USERNAME}) {}
+      @required this.HORARIOPREFERIDO,
+      @required this.TELEFONE,
+      @required this.USERNAME}) {}
 
   Usuario.fromMap(Map<String, dynamic> map) {
     USERNAME = map['NOME'];
     EMAIL = map['EMAIL'];
     TELEFONE = map['TELEFONE'];
-    HORARIOPREFERIDO = map['HORARIOPREFERIDO'];
+    HORARIOPREFERIDO = TimeOfDay(
+        hour: int.parse(map['HORARIOPREFERIDO'].split(':')[0]),
+        minute: int.parse(map['HORARIOPREFERIDO'].split(':')[1]));
   }
 
   Map<String, dynamic> toMap() {
@@ -23,7 +25,7 @@ class Usuario {
       'NOME': USERNAME,
       'EMAIL': EMAIL,
       'TELEFONE': TELEFONE,
-      'HORARIOPREFERIDO': HORARIOPREFERIDO
+      'HORARIOPREFERIDO': '${HORARIOPREFERIDO.hour}:${HORARIOPREFERIDO.minute}'
     };
     return map;
   }
