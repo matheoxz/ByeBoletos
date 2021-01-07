@@ -88,10 +88,6 @@ O SGBD escolhido é o SQLite3 pois trata-se de um gerenciador local para esquema
 Para a fácil programação e exibição das notificações foi escolhido o uso do pacote  flutter_local_notifications.
 O editor de código escolhido é o VSCode, para trabalhar em grupo utilizaremos a extensão LiveShare. O versionamento do código será feito através do GitHub. <br>
 
-### 5 Projeto Arquitetural
-
-### 6 Projeto de componentes
-
 ### 7 Projeto de interface com o usuário
 <br>
 
