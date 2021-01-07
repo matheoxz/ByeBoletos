@@ -19,7 +19,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
       telefoneCTL = TextEditingController();
   final bd = DAO.instance;
   Usuario usuario;
-  bool first = true;
+  bool first = true, clock = false;
 
   void initState() {
     setState(() {
@@ -27,6 +27,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
         print(value);
         if (value.length > 0)
           setState(() {
+            first = false;
             usuario = Usuario.fromMap(value[0]);
           });
       });
@@ -39,13 +40,14 @@ class _ConfiguracoesState extends State<Configuracoes> {
 
   @override
   Widget build(BuildContext context) {
-    if (usuario != null) {
-      first = false;
-      usernameCTL.text = usuario.USERNAME;
-      emailCTL.text = usuario.EMAIL;
-      telefoneCTL.text = usuario.TELEFONE;
-      horarioCTL.text =
-          '${usuario.HORARIOPREFERIDO.hour}:${usuario.HORARIOPREFERIDO.minute}';
+    if (!first && !clock) {
+      setState(() {
+        usernameCTL.text = usuario.USERNAME;
+        emailCTL.text = usuario.EMAIL;
+        telefoneCTL.text = usuario.TELEFONE;
+        horarioCTL.text =
+            '${usuario.HORARIOPREFERIDO.hour}:${usuario.HORARIOPREFERIDO.minute}';
+      });
     }
 
     return Scaffold(
@@ -109,16 +111,16 @@ class _ConfiguracoesState extends State<Configuracoes> {
                   onTap: () async {
                     FocusScope.of(context).requestFocus(new FocusNode());
                     showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                      builder: (BuildContext context, Widget child) {
-                        return MediaQuery(
-                          data: MediaQuery.of(context)
-                              .copyWith(alwaysUse24HourFormat: true),
-                          child: child,
-                        );
-                      },
-                    ).then((horaSelecionada) {
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                        builder: (BuildContext context, Widget child) {
+                          clock = true;
+                          return MediaQuery(
+                            data: MediaQuery.of(context)
+                                .copyWith(alwaysUse24HourFormat: true),
+                            child: child,
+                          );
+                        }).then((horaSelecionada) {
                       setState(() {
                         horario = horaSelecionada;
                         horarioCTL.text =
@@ -151,10 +153,6 @@ class _ConfiguracoesState extends State<Configuracoes> {
                       /*Scaffold.of(context).showSnackBar(SnackBar(
                         content:
                             Text('Erro ao cadastrar usuário, tente novamente!'),
-                      ));*/
-                    } finally {
-                      /* Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text('Usuário cadastrado com sucesso'),
                       ));*/
                     }
                   },

@@ -50,6 +50,7 @@ class DAO {
       ''');
     await db.execute('''
       CREATE TABLE USUARIO(
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
       NOME TEXT NOT NULL,
       TELEFONE TEXT NOT NULL,
       SENHA TEXT,
@@ -133,7 +134,8 @@ class DAO {
 
   Future<int> updateUsuario(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    return await db.update("USUARIO", row);
+    return await db
+        .update("USUARIO", row, where: "ID = ?", whereArgs: [row['ID']]);
   }
 
   Future<int> updateHistorico(Map<String, dynamic> row) async {

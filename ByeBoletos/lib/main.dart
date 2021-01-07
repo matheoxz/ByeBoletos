@@ -85,12 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     content: Text('Erro ao deletar boleto, tente novamente!'),
                   ));
                 });*/
-              } finally {
-                /*Builder(builder: (BuildContext context) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Boleto ${_bol.TITULO} deletado!'),
-                  ));
-                });*/
               }
             },
             child: CardBoleto(
